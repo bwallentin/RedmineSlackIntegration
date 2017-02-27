@@ -12,9 +12,9 @@ namespace RedmineSlackIntegration.Slack
             {
                 "Nu har ni för många daily business ärenden igång!!",
                 "Jösses!! Nu har ni för mycket daily business igång igen",
-                "Åh nej! Så mycket dailys bussiness ni arbetar med",
+                "Åh nej! Så mycket daily bussiness ni arbetar med",
                 "För många daily business ärenden igång!!",
-                "Hej vänner. Jag vet att ni älskar dailys business. Men inte så mycket igång samtidigt tack!",
+                "Hej vänner. Jag vet att ni älskar daily business. Men inte så mycket igång samtidigt tack!",
                 "Tjena <@slackbot>, ska vi ta en fika medans teamet minskar antal daily business de arbetar med?"
             };
 
