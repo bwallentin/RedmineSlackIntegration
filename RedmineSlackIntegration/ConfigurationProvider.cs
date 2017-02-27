@@ -20,7 +20,7 @@ namespace RedmineSlackIntegration
             return key;
         }
 
-        public static string SlackUrl => GetNonEmptyAppSetting("SlackUrl");
+        public static string SlackHook => GetNonEmptyAppSetting("SlackHook");
         public static string AdlisHost => GetNonEmptyAppSetting("AdlisHost");
         public static string AdlisApiKey => GetNonEmptyAppSetting("AdlisApiKey");
         public static string AlreadyKnownIssuesJsonFile => GetNonEmptyAppSetting("AlreadyKnownIssuesJsonFile");

@@ -12,7 +12,6 @@ namespace RedmineSlackIntegration
     {
         void WhenStarted();
         void WhenStopped();
-        void AddGetNewOrProdsattIssuesJob();
     }
 
     public class RedmineSlackIntegrationService : IRedmineSlackIntegrationService

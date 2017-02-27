@@ -22,7 +22,8 @@ namespace RedmineSlackIntegration.Slack
 
         public SlackClient()
         {
-            _uri = new Uri(ConfigurationProvider.SlackUrl);
+            var uriString = @"https://hooks.slack.com/services/" + ConfigurationProvider.SlackHook;
+            _uri = new Uri(uriString);
         }
 
         public void PostIssuesToSlack(IEnumerable<Issue> issues)
