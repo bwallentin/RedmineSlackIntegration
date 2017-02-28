@@ -75,17 +75,22 @@
   <ItemGroup>
     <Compile Include="ConfigurationProvider.cs" />
     <Compile Include="Bootstrap\ConfigureService.cs" />
+    <Compile Include="DataUtils\DataRepository.cs" />
+    <Compile Include="DataUtils\ReflectionProvider.cs" />
+    <Compile Include="DataUtils\SqlManager.cs" />
+    <Compile Include="Domain\Redmine\RedmineApiIntegration.cs" />
     <Compile Include="Jobs\GetDailyBusinessIssuesInProgressJob.cs" />
     <Compile Include="Jobs\GetNewOrProdsattIssuesJob.cs" />
     <Compile Include="Jobs\JobFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedmineSlackIntegrationService.cs" />
-    <Compile Include="Redmine\RedmineConstants.cs" />
-    <Compile Include="Redmine\RedmineHelper.cs" />
-    <Compile Include="Redmine\RedmineIntegration.cs" />
-    <Compile Include="Slack\SlackIntegration.cs" />
-    <Compile Include="Slack\SlackMessages.cs" />
+    <Compile Include="Domain\Redmine\RedmineConstants.cs" />
+    <Compile Include="Domain\Redmine\RedmineHelper.cs" />
+    <Compile Include="Domain\Redmine\RedmineManager.cs" />
+    <Compile Include="Domain\Redmine\Data\RedmineRepository.cs" />
+    <Compile Include="Domain\Slack\SlackIntegration.cs" />
+    <Compile Include="Domain\Slack\SlackMessages.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -98,6 +103,22 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Domain\Redmine\Data\Sql\GetIssues.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Domain\Redmine\Data\Sql\CreateIssuesTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Domain\Redmine\Data\Sql\DeleteAllIssues.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Domain\Redmine\Data\Sql\InsertNewIssues.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

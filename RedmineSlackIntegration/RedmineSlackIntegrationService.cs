@@ -2,9 +2,9 @@
 using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Triggers;
+using RedmineSlackIntegration.Domain.Redmine;
+using RedmineSlackIntegration.Domain.Slack;
 using RedmineSlackIntegration.Jobs;
-using RedmineSlackIntegration.Redmine;
-using RedmineSlackIntegration.Slack;
 
 namespace RedmineSlackIntegration
 {
@@ -17,12 +17,12 @@ namespace RedmineSlackIntegration
     public class RedmineSlackIntegrationService : IRedmineSlackIntegrationService
     {
         private static IScheduler _scheduler;
-        private readonly IRedmineIntegration _redmineIntegration;
+        private readonly IRedmineManager _redmineManager;
         private readonly ISlackClient _slackClient;
 
-        public RedmineSlackIntegrationService(IRedmineIntegration redmineIntegration, ISlackClient slackClient)
+        public RedmineSlackIntegrationService(IRedmineManager redmineManager, ISlackClient slackClient)
         {
-            _redmineIntegration = redmineIntegration;
+            _redmineManager = redmineManager;
             _slackClient = slackClient;
         }
 
@@ -34,7 +34,7 @@ namespace RedmineSlackIntegration
             Console.WriteLine("Starting Scheduler");
             
             AddGetNewOrProdsattIssuesJob();
-            AddGetIssuesInProgressJob();
+            //AddGetDailyBusinessIssuesInProgressJob();
         }
 
         public void WhenStopped()
@@ -45,17 +45,17 @@ namespace RedmineSlackIntegration
         {
             var cronScheduele = ConfigurationProvider.GetNewOrProdsattIssuesCronSchedule;
             
-            IGetNewOrProdsattIssuesJob myJob = new GetNewOrProdsattIssuesJob(_slackClient, _redmineIntegration);
+            IGetNewOrProdsattIssuesJob myJob = new GetNewOrProdsattIssuesJob(_slackClient, _redmineManager);
             var jobDetail = new JobDetailImpl("Job1", "Group1", myJob.GetType());
             var trigger = new CronTriggerImpl("Trigger1", "Group1", cronScheduele);
             _scheduler.ScheduleJob(jobDetail, trigger);
         }
 
-        private void AddGetIssuesInProgressJob()
+        private void AddGetDailyBusinessIssuesInProgressJob()
         {
             var cronScheduele = ConfigurationProvider.GetDailyBusinessIssuesInProgressCronSchedule;
 
-            IGetDailyBusinessIssuesInProgressJob myJob = new GetDailyBusinessIssuesInProgressJob(_slackClient, _redmineIntegration);
+            IGetDailyBusinessIssuesInProgressJob myJob = new GetDailyBusinessIssuesInProgressJob(_slackClient, _redmineManager);
             var jobDetail = new JobDetailImpl("Job2", "Group2", myJob.GetType());
             var trigger = new CronTriggerImpl("Trigger2", "Group2", cronScheduele);
             _scheduler.ScheduleJob(jobDetail, trigger);

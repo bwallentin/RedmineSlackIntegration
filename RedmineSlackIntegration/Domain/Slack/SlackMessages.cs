@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Redmine.Net.Api.Types;
 
-namespace RedmineSlackIntegration.Slack
+namespace RedmineSlackIntegration.Domain.Slack
 {
     public static class SlackMessages
     {

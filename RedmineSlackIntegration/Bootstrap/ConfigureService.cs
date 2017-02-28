@@ -2,9 +2,10 @@
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
+using RedmineSlackIntegration.Domain.Redmine;
+using RedmineSlackIntegration.Domain.Redmine.Data;
+using RedmineSlackIntegration.Domain.Slack;
 using RedmineSlackIntegration.Jobs;
-using RedmineSlackIntegration.Redmine;
-using RedmineSlackIntegration.Slack;
 using SimpleInjector;
 using Topshelf;
 
@@ -25,7 +26,9 @@ namespace RedmineSlackIntegration.Bootstrap
             container.RegisterSingleton<ISchedulerFactory>(schedulerFactory);
 
             container.Register<ISlackClient, SlackClient>();
-            container.Register<IRedmineIntegration, RedmineIntegration>();
+            container.Register<IRedmineManager, RedmineManager>();
+            container.Register<IRedmineApiIntegration, RedmineApiIntegration>();
+            container.Register<IRedmineRepository>(() => new RedmineRepository(ConfigurationProvider.ConnectionString));
             container.Register<IRedmineSlackIntegrationService, RedmineSlackIntegrationService>();
 
             container.RegisterSingleton<IScheduler>(() =>

@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using Redmine.Net.Api;
 using Redmine.Net.Api.Types;
 
-namespace RedmineSlackIntegration.Redmine
+namespace RedmineSlackIntegration.Domain.Redmine
 {
-    public interface IRedmineIntegration
+    public interface IRedmineApiIntegration
     {
-        IList<Issue> GetReadyForDevOrProdsattIssuesToBeSentToSlack();
-        IList<Issue> GetDailyBusinessIssuesToBeSentToSlack();
+        List<Issue> GetReadyForDevAndProdsattIssuesFromAdlis();
+        List<Issue> GetDailyBusinessIssuesInProgress();
     }
 
-    public class RedmineIntegration : IRedmineIntegration
+    public class RedmineApiIntegration : IRedmineApiIntegration
     {
         // Status Id
         private const int KlarForDevStatusId = (int)RedmineStatus.KlarForDev;
@@ -21,46 +20,34 @@ namespace RedmineSlackIntegration.Redmine
         private const int DemoStatusId = (int)RedmineStatus.Demo;
         private const int VerifieringStatusId = (int)RedmineStatus.Verifiering;
         private const int ProdsattStatusId = (int)RedmineStatus.Prodsatt;
-        
+
         // Project Id
         private const int DailyBusinessProjectId = (int)RedmineProjects.DailyBusiness;
-        //private const int AisProjectId = (int)RedmineProjects.AIS;
         private const int InkopProduktProjectId = (int)RedmineProjects.InkopProdukt;
 
-        private readonly RedmineManager _manager;
+        private readonly global::Redmine.Net.Api.RedmineManager _redmineApiManager;
 
-        public RedmineIntegration()
+        public RedmineApiIntegration()
         {
-            _manager = new RedmineManager(ConfigurationProvider.AdlisHost, ConfigurationProvider.AdlisApiKey);
+            _redmineApiManager = new global::Redmine.Net.Api.RedmineManager(ConfigurationProvider.AdlisHost, ConfigurationProvider.AdlisApiKey);
         }
 
-        public IList<Issue> GetReadyForDevOrProdsattIssuesToBeSentToSlack()
+        public List<Issue> GetReadyForDevAndProdsattIssuesFromAdlis()
         {
-            var completeListFromAdlis = new List<Issue>();
-            GetReadyForDevAndProdsattIssues(completeListFromAdlis);
+            var returnList = new List<Issue>();
 
-            var issuesToBeSentToSlack = RedmineHelper.GetIssuesToBeSentToSlack(completeListFromAdlis);
-            return issuesToBeSentToSlack;
-        }
-
-        public IList<Issue> GetDailyBusinessIssuesToBeSentToSlack()
-        {
-            var completeListFromAdlis = GetDailyBusinessIssuesInProgress();
-            return completeListFromAdlis;
-        }
-
-        private void GetReadyForDevAndProdsattIssues(List<Issue> completeListFromAdlis)
-        {
             var issuesReadyForDev = GetIssues(KlarForDevStatusId, InkopProduktProjectId);
-            completeListFromAdlis.AddRange(issuesReadyForDev.Select(issue => issue).Where(x => x.AssignedTo == null).ToList());
+            returnList.AddRange(issuesReadyForDev.Select(issue => issue).Where(x => x.AssignedTo == null).ToList());
 
             var issuesProdsatt = GetIssues(ProdsattStatusId, InkopProduktProjectId);
-            completeListFromAdlis.AddRange(issuesProdsatt.Select(issue => issue).ToList());
+            returnList.AddRange(issuesProdsatt.Select(issue => issue).ToList());
+
+            return returnList;
         }
-        
-        private IList<Issue> GetDailyBusinessIssuesInProgress()
+
+        public List<Issue> GetDailyBusinessIssuesInProgress()
         {
-            // TODO: Find a way not have to make three separate calls
+            // TODO: Find a way not to have to make a bunch of separate calls
             var issues = new List<Issue>();
             issues.AddRange(GetIssues(UtvecklingStatusId, DailyBusinessProjectId));
             issues.AddRange(GetIssues(DemoStatusId, DailyBusinessProjectId));
@@ -78,7 +65,7 @@ namespace RedmineSlackIntegration.Redmine
                 {"project_id", projectId.ToString()}
             };
 
-            var issues = _manager.GetObjectList<Issue>(parameters);
+            var issues = _redmineApiManager.GetObjectList<Issue>(parameters);
 
             return issues;
         }

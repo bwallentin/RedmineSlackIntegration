@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace RedmineSlackIntegration.Redmine
+namespace RedmineSlackIntegration.Domain.Redmine
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public enum RedmineProjects

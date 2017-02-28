@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Quartz;
-using RedmineSlackIntegration.Redmine;
-using RedmineSlackIntegration.Slack;
+using RedmineSlackIntegration.Domain.Redmine;
+using RedmineSlackIntegration.Domain.Slack;
 
 namespace RedmineSlackIntegration.Jobs
 {
@@ -12,17 +12,17 @@ namespace RedmineSlackIntegration.Jobs
     internal class GetDailyBusinessIssuesInProgressJob : IGetDailyBusinessIssuesInProgressJob
     {
         private readonly ISlackClient _slackClient;
-        private readonly IRedmineIntegration _redmineIntegration;
+        private readonly IRedmineManager _redmineManager;
 
-        public GetDailyBusinessIssuesInProgressJob(ISlackClient slackClient, IRedmineIntegration redmineIntegration)
+        public GetDailyBusinessIssuesInProgressJob(ISlackClient slackClient, IRedmineManager redmineManager)
         {
             _slackClient = slackClient;
-            _redmineIntegration = redmineIntegration;
+            _redmineManager = redmineManager;
         }
 
         public void Execute(IJobExecutionContext context)
         {
-            var issues = _redmineIntegration.GetDailyBusinessIssuesToBeSentToSlack();
+            var issues = _redmineManager.GetDailyBusinessIssuesToBeSentToSlack();
             if (issues.Any() && issues.Count > 2)
             {
                 _slackClient.PostDailyBusinessWarningToSlack();

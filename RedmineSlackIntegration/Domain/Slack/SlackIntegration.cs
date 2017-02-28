@@ -5,9 +5,9 @@ using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 using Redmine.Net.Api.Types;
-using RedmineSlackIntegration.Redmine;
+using RedmineSlackIntegration.Domain.Redmine;
 
-namespace RedmineSlackIntegration.Slack
+namespace RedmineSlackIntegration.Domain.Slack
 {
     public interface ISlackClient
     {
