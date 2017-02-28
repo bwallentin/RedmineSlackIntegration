@@ -23,6 +23,7 @@ namespace RedmineSlackIntegration.Jobs
         public void Execute(IJobExecutionContext context)
         {
             var issues = _redmineManager.GetDailyBusinessIssuesToBeSentToSlack();
+
             if (issues.Any() && issues.Count > 2)
             {
                 _slackClient.PostDailyBusinessWarningToSlack();

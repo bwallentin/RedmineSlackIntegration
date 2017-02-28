@@ -11,10 +11,10 @@ namespace RedmineSlackIntegration.Domain.Slack
             var list = new List<string>
             {
                 "Nu har ni för många daily business ärenden igång!!",
-                "Jösses!! Nu har ni för mycket daily business igång igen",
-                "Åh nej! Så mycket daily bussiness ni arbetar med",
+                "Jösses!! Nu har ni för mycket daily business igång igen.",
+                "Åh nej! Så mycket daily bussiness ni arbetar med.",
                 "För många daily business ärenden igång!!",
-                "Hej vänner. Jag vet att ni älskar daily business. Men inte så mycket igång samtidigt tack!",
+                "Hej vänner. Jag vet att ni älskar daily business. Men inte så mycket igång samtidigt, tack!",
                 "Tjena <@slackbot>, ska vi ta en fika medans teamet minskar antal daily business de arbetar med?"
             };
 
@@ -27,9 +27,10 @@ namespace RedmineSlackIntegration.Domain.Slack
 
             var list = new List<string>
             {
-                "Nytt ärende redo för utveckling.",
+                "Nytt ärende finns nu redo för utveckling.",
                 "Hoppas ni är redo att arbeta, för nu finns ett nytt ärende redo för utveckling!",
-                "Vässa hjärnorna och fingrarna, nu har vi ett nytt ärende redo att hugga tag i!"
+                "Vässa hjärnorna! Vässa fingrarna! Nu har vi ett nytt ärende redo att hugga tag i!",
+                "Nu får fikapausen vara över, nytt ärende redo för utveckling."
             };
 
             var randomString = PickOutRandomStringFromList(list);
@@ -47,7 +48,8 @@ namespace RedmineSlackIntegration.Domain.Slack
                 "Sedärja, ett nytt ärende har precis blivit prodsatt.",
                 "Ett nytt ärende har blivit prodsatt, trevligt!",
                 "Som ni jobbar! Nytt ärende nu ute i prod!",
-                "Va grymma ni är, ännu ett nytt ärende ute i prod!"
+                "Va grymma ni är, ännu ett nytt ärende ute i prod!",
+                "Jösses Amalia! Ännu ett ärende blev precis prodsatt. Väl utfört arbete!"
             };
 
             var randomString = PickOutRandomStringFromList(list);
