@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 using Redmine.Net.Api.Types;
+using RedmineSlackIntegration.Domain.Configuration.Data;
 using RedmineSlackIntegration.Domain.Redmine;
 
 namespace RedmineSlackIntegration.Domain.Slack
@@ -20,9 +21,9 @@ namespace RedmineSlackIntegration.Domain.Slack
         private readonly Uri _uri;
         private readonly Encoding _encoding = new UTF8Encoding();
 
-        public SlackClient()
+        public SlackClient(IConfigurationRepo configurationRepo)
         {
-            var uriString = @"https://hooks.slack.com/services/" + ConfigurationProvider.SlackHook;
+            var uriString = @"https://hooks.slack.com/services/" + configurationRepo.SlackHook;
             _uri = new Uri(uriString);
         }
 

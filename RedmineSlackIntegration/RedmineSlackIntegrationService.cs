@@ -2,6 +2,7 @@
 using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Triggers;
+using RedmineSlackIntegration.Domain.Configuration;
 using RedmineSlackIntegration.Domain.Redmine;
 using RedmineSlackIntegration.Domain.Slack;
 using RedmineSlackIntegration.Jobs;

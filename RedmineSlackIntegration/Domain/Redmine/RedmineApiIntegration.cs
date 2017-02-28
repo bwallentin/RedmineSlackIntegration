@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Linq;
 using Redmine.Net.Api.Types;
+using RedmineSlackIntegration.Domain.Configuration.Data;
 
 namespace RedmineSlackIntegration.Domain.Redmine
 {
@@ -27,9 +28,9 @@ namespace RedmineSlackIntegration.Domain.Redmine
 
         private readonly global::Redmine.Net.Api.RedmineManager _redmineApiManager;
 
-        public RedmineApiIntegration()
+        public RedmineApiIntegration(IConfigurationRepo configurationRepo)
         {
-            _redmineApiManager = new global::Redmine.Net.Api.RedmineManager(ConfigurationProvider.AdlisHost, ConfigurationProvider.AdlisApiKey);
+            _redmineApiManager = new global::Redmine.Net.Api.RedmineManager(@"http://adlis/", configurationRepo.AdlisApiKey);
         }
 
         public List<Issue> GetReadyForDevAndProdsattIssuesFromAdlis()

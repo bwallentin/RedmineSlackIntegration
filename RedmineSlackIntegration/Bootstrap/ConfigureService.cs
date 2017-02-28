@@ -2,6 +2,8 @@
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
+using RedmineSlackIntegration.Domain.Configuration;
+using RedmineSlackIntegration.Domain.Configuration.Data;
 using RedmineSlackIntegration.Domain.Redmine;
 using RedmineSlackIntegration.Domain.Redmine.Data;
 using RedmineSlackIntegration.Domain.Slack;
@@ -30,6 +32,7 @@ namespace RedmineSlackIntegration.Bootstrap
             container.Register<IRedmineApiIntegration, RedmineApiIntegration>();
             container.Register<IRedmineRepository>(() => new RedmineRepository(ConfigurationProvider.ConnectionString));
             container.Register<IRedmineSlackIntegrationService, RedmineSlackIntegrationService>();
+            container.Register<IConfigurationRepo>(() => new ConfigurationRepo(ConfigurationProvider.ConnectionString));
 
             container.RegisterSingleton<IScheduler>(() =>
             {

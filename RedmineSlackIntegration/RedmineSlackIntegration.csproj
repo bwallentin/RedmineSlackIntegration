@@ -73,8 +73,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationProvider.cs" />
+    <Compile Include="Domain\Configuration\ConfigurationProvider.cs" />
     <Compile Include="Bootstrap\ConfigureService.cs" />
+    <Compile Include="Domain\Configuration\Data\ConfigurationRepo.cs" />
     <Compile Include="DataUtils\DataRepository.cs" />
     <Compile Include="DataUtils\ReflectionProvider.cs" />
     <Compile Include="DataUtils\SqlManager.cs" />
@@ -120,7 +121,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Domain\Configuration\Data\Sql\GetConfiguration.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

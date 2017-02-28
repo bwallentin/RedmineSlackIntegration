@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Configuration;
-using System.IO;
-using System.Reflection;
 
-namespace RedmineSlackIntegration
+namespace RedmineSlackIntegration.Domain.Configuration
 {
     public static class ConfigurationProvider
     {
@@ -27,12 +25,6 @@ namespace RedmineSlackIntegration
             return key;
         }
 
-        private static readonly string ExecutableLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-        public static string SlackHook => GetNonEmptyAppSetting("SlackHook");
-        public static string AdlisHost => GetNonEmptyAppSetting("AdlisHost");
-        public static string AdlisApiKey => GetNonEmptyAppSetting("AdlisApiKey");
-        public static string AlreadyKnownIssuesJsonFile => Path.Combine(ExecutableLocation, "Issues.json");
         public static string GetNewOrProdsattIssuesCronSchedule => GetNonEmptyAppSetting("GetNewOrProdsattIssuesCronSchedule");
         public static string GetDailyBusinessIssuesInProgressCronSchedule => GetNonEmptyAppSetting("GetDailyBusinessIssuesInProgressCronSchedule");
         public static string ConnectionString => GetConnectionString("bodb");
