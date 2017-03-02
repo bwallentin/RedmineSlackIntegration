@@ -10,12 +10,11 @@ namespace RedmineSlackIntegration.Domain.Slack
         {
             var list = new List<string>
             {
-                "Nu har ni för många daily business ärenden igång!!",
+                "Nu har ni för många daily business ärenden igång!!!",
                 "Jösses!! Nu har ni för mycket daily business igång igen.",
-                "Åh nej! Så mycket daily bussiness ni arbetar med.",
+                "Åhh neej! Så mycket daily bussiness ni arbetar med. Dags att minska det lite?",
                 "För många daily business ärenden igång!!",
-                "Hej vänner. Jag vet att ni älskar daily business. Men inte så mycket igång samtidigt, tack!",
-                "Tjena <@slackbot>, ska vi ta en fika medans teamet minskar antal daily business de arbetar med?"
+                "Hej vänner. Jag vet att ni älskar daily business. Men inte så mycket igång samtidigt, tack!"
             };
 
             return PickOutRandomStringFromList(list);
@@ -30,7 +29,8 @@ namespace RedmineSlackIntegration.Domain.Slack
                 "Nytt ärende finns nu redo för utveckling.",
                 "Hoppas ni är redo att arbeta, för nu finns ett nytt ärende redo för utveckling!",
                 "Vässa hjärnorna! Vässa fingrarna! Nu har vi ett nytt ärende redo att hugga tag i!",
-                "Nu får fikapausen vara över, nytt ärende redo för utveckling."
+                "Nu får fikapausen vara över, nytt ärende redo för utveckling.",
+                "Tjena <@slackbot>, ska vi ta en fika medans teamet börjar arbeta på det nya ärendet som är redo för utveckling?"
             };
 
             var randomString = PickOutRandomStringFromList(list);
@@ -44,7 +44,7 @@ namespace RedmineSlackIntegration.Domain.Slack
 
             var list = new List<string>
             {
-                "Nytt ärende prodsatt",
+                "Nytt ärende prodsatt. Woho!",
                 "Sedärja, ett nytt ärende har precis blivit prodsatt.",
                 "Ett nytt ärende har blivit prodsatt, trevligt!",
                 "Som ni jobbar! Nytt ärende nu ute i prod!",
