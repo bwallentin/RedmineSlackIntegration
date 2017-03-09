@@ -40,7 +40,10 @@ namespace RedmineSlackIntegration.Domain.Redmine
         public IList<Issue> GetDailyBusinessIssuesToBeSentToSlack()
         {
             var completeListFromAdlis = _redmineApiIntegration.GetDailyBusinessIssuesInProgress();
-            completeListFromAdlis.RemoveAll(x => x.AssignedTo.Name.Contains("Lars Utterström"));
+            
+            RedmineHelper.RemoveExcludedUsers(completeListFromAdlis);
+            RedmineHelper.RemoveBlockedIssues(completeListFromAdlis);
+
             return completeListFromAdlis;
         }
     }
