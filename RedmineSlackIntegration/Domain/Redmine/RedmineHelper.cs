@@ -24,9 +24,20 @@ namespace RedmineSlackIntegration.Domain.Redmine
             return returnList;
         }
 
-        public static List<Issue> RemoveExcludedUsers(List<Issue> issues)
+        //public static List<Issue> RemoveExcludedUsers(List<Issue> issues)
+        //{
+        //    issues.RemoveAll(issue => issue.AssignedTo.Name.Contains("Lars Utterström"));
+        //    return issues;
+        //}
+
+        public static List<Issue> RemoveDailyBusinessIssues(List<Issue> issues)
         {
-            issues.RemoveAll(issue => issue.AssignedTo.Name.Contains("Lars Utterström"));
+            issues.RemoveAll(issue =>
+            {
+                var dailybusinessId = RedmineProjects.DailyBusiness;
+                return issue.Project.Id == (int)dailybusinessId;
+            });
+
             return issues;
         }
 

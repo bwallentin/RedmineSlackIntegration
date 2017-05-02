@@ -7,8 +7,8 @@ namespace RedmineSlackIntegration.Domain.Redmine
 {
     public interface IRedmineManager
     {
-        IList<Issue> GetReadyForDevOrProdsattIssuesToBeSentToSlack();
-        IList<Issue> GetDailyBusinessIssuesToBeSentToSlack();
+        IList<Issue> GetNewIssuesOrProdsattIssuesToBeSentToSlack();
+        IList<Issue> GetIssuesInProgressToBeSentToSlack();
     }
 
     public class RedmineManager : IRedmineManager
@@ -21,10 +21,10 @@ namespace RedmineSlackIntegration.Domain.Redmine
             _redmineRepo = redmineRepo;
             _redmineApiIntegration = redmineApiIntegration;
         }
-
-        public IList<Issue> GetReadyForDevOrProdsattIssuesToBeSentToSlack()
+        
+        public IList<Issue> GetNewIssuesOrProdsattIssuesToBeSentToSlack()
         {
-            var issuesFromAdlis = _redmineApiIntegration.GetReadyForDevAndProdsattIssuesFromAdlis();
+            var issuesFromAdlis = _redmineApiIntegration.GetNewIssuesAndProdsattIssuesFromAdlis();
             var alreadyKnownIssues = _redmineRepo.GetAlreadyKnownIssuesFromDb();
             
             var issuesFromAdlisOnlyStrings = RedmineHelper.ConvertListFromAdlisToListWithOnlyStrings(issuesFromAdlis);
@@ -37,11 +37,11 @@ namespace RedmineSlackIntegration.Domain.Redmine
                 RedmineHelper.CreateReturnList(issuesFromAdlis, returnListOnlyStrings);
         }
 
-        public IList<Issue> GetDailyBusinessIssuesToBeSentToSlack()
+        public IList<Issue> GetIssuesInProgressToBeSentToSlack()
         {
-            var completeListFromAdlis = _redmineApiIntegration.GetDailyBusinessIssuesInProgress();
+            var completeListFromAdlis = _redmineApiIntegration.GetIssuesInProgress();
             
-            RedmineHelper.RemoveExcludedUsers(completeListFromAdlis);
+            RedmineHelper.RemoveDailyBusinessIssues(completeListFromAdlis);
             RedmineHelper.RemoveBlockedIssues(completeListFromAdlis);
 
             return completeListFromAdlis;

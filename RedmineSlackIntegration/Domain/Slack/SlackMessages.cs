@@ -6,21 +6,32 @@ namespace RedmineSlackIntegration.Domain.Slack
 {
     public static class SlackMessages
     {
-        public static string GetTooMuchDailyBusinessMessage()
+        public static string WipLimitBrokenMessage()
         {
             var list = new List<string>
             {
-                "Nu har ni för många daily business ärenden igång!!!",
-                "Jösses!! Nu har ni för mycket daily business igång igen.",
-                "Åhh neej! Så mycket daily business ni arbetar med. Dags att minska det lite?",
-                "För många daily business ärenden igång!!",
-                "Hej vänner. Jag vet att ni älskar daily business. Men inte så mycket igång samtidigt, tack!"
+                "För många ärenden igång. WIP-limiten är bruten!! (test, hihi)"
             };
 
             return PickOutRandomStringFromList(list);
+
         }
 
-        public static string GetReadyForDevRandomMessage(Issue issue)
+        //public static string GetTooMuchDailyBusinessMessage()
+        //{
+        //    var list = new List<string>
+        //    {
+        //        "Nu har ni för många daily business ärenden igång!!!",
+        //        "Jösses!! Nu har ni för mycket daily business igång igen.",
+        //        "Åhh neej! Så mycket daily business ni arbetar med. Dags att minska det lite?",
+        //        "För många daily business ärenden igång!!",
+        //        "Hej vänner. Jag vet att ni älskar daily business. Men inte så mycket igång samtidigt, tack!"
+        //    };
+
+        //    return PickOutRandomStringFromList(list);
+        //}
+
+        public static string GetNewIssuesRandomMessage(Issue issue)
         {
             var adlisLink = $"<http://adlis/issues/{issue.Id}|#{issue.Id}>";
 

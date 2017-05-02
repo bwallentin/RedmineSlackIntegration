@@ -80,7 +80,7 @@
     <Compile Include="DataUtils\ReflectionProvider.cs" />
     <Compile Include="DataUtils\SqlManager.cs" />
     <Compile Include="Domain\Redmine\RedmineApiIntegration.cs" />
-    <Compile Include="Jobs\GetDailyBusinessIssuesInProgressJob.cs" />
+    <Compile Include="Jobs\GetIssuesInProgressJob.cs" />
     <Compile Include="Jobs\GetNewOrProdsattIssuesJob.cs" />
     <Compile Include="Jobs\JobFactory.cs" />
     <Compile Include="Program.cs" />
@@ -126,6 +126,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

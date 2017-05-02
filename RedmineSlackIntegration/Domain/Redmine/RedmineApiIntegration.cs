@@ -8,8 +8,9 @@ namespace RedmineSlackIntegration.Domain.Redmine
 {
     public interface IRedmineApiIntegration
     {
-        List<Issue> GetReadyForDevAndProdsattIssuesFromAdlis();
-        List<Issue> GetDailyBusinessIssuesInProgress();
+        List<Issue> GetNewIssuesAndProdsattIssuesFromAdlis();
+        List<Issue> GetIssuesInProgress();
+        //IList<Project> GetProjects();
     }
 
     public class RedmineApiIntegration : IRedmineApiIntegration
@@ -23,7 +24,7 @@ namespace RedmineSlackIntegration.Domain.Redmine
         private const int ProdsattStatusId = (int)RedmineStatus.Prodsatt;
 
         // Project Id
-        private const int DailyBusinessProjectId = (int)RedmineProjects.DailyBusiness;
+        //private const int DailyBusinessProjectId = (int)RedmineProjects.DailyBusiness;
         private const int InkopProduktProjectId = (int)RedmineProjects.InkopProdukt;
 
         private readonly global::Redmine.Net.Api.RedmineManager _redmineApiManager;
@@ -32,31 +33,36 @@ namespace RedmineSlackIntegration.Domain.Redmine
         {
             _redmineApiManager = new global::Redmine.Net.Api.RedmineManager(@"http://adlis/", configurationRepo.AdlisApiKey);
         }
-
-        public List<Issue> GetReadyForDevAndProdsattIssuesFromAdlis()
+        
+        public List<Issue> GetNewIssuesAndProdsattIssuesFromAdlis()
         {
-            var returnList = new List<Issue>();
-
-            var issuesReadyForDev = GetIssues(KlarForDevStatusId, InkopProduktProjectId);
-            returnList.AddRange(issuesReadyForDev.Select(issue => issue).Where(x => x.AssignedTo == null).ToList());
-
-            var issuesProdsatt = GetIssues(ProdsattStatusId, InkopProduktProjectId);
-            returnList.AddRange(issuesProdsatt.Select(issue => issue).ToList());
-
-            return returnList;
-        }
-
-        public List<Issue> GetDailyBusinessIssuesInProgress()
-        {
-            // TODO: Find a way not to have to make a bunch of separate calls
             var issues = new List<Issue>();
-            issues.AddRange(GetIssues(UtvecklingStatusId, DailyBusinessProjectId));
-            issues.AddRange(GetIssues(DemoStatusId, DailyBusinessProjectId));
-            issues.AddRange(GetIssues(VerifieringStatusId, DailyBusinessProjectId));
-            issues.AddRange(GetIssues(AcctestStatusId, DailyBusinessProjectId));
+            issues.AddRange(GetIssues(KlarForDevStatusId, InkopProduktProjectId).Select(issue => issue).Where(x => x.AssignedTo == null).ToList());
+            issues.AddRange(GetIssues(ProdsattStatusId, InkopProduktProjectId));
 
+            // We probably don't need to extract the DailyBusinessProject issues because that's a subproject to InkopProduktProject
+            //issues.AddRange(GetIssues(KlarForDevStatusId, DailyBusinessProjectId).Select(issue => issue).Where(x => x.AssignedTo == null).ToList());
+            //issues.AddRange(GetIssues(ProdsattStatusId, DailyBusinessProjectId));
             return issues;
         }
+        
+        public List<Issue> GetIssuesInProgress()
+        {
+            var issues = new List<Issue>();
+            issues.AddRange(GetIssues(UtvecklingStatusId, InkopProduktProjectId));
+            issues.AddRange(GetIssues(DemoStatusId, InkopProduktProjectId));
+            issues.AddRange(GetIssues(VerifieringStatusId, InkopProduktProjectId));
+            issues.AddRange(GetIssues(AcctestStatusId, InkopProduktProjectId));
+            return issues;
+        }
+
+        // Get all projects from Adlis
+        //public IList<Project> GetProjects()
+        //{
+        //    var parameters = new NameValueCollection { { "limit", "100" } };
+        //    var projs = _redmineApiManager.GetObjectList<Project>(parameters);
+        //    return projs;
+        //}
 
         private IList<Issue> GetIssues(int statusId, int projectId)
         {

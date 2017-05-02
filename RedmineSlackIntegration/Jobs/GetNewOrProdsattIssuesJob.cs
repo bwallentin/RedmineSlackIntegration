@@ -22,7 +22,7 @@ namespace RedmineSlackIntegration.Jobs
 
         public void Execute(IJobExecutionContext context)
         {
-            var issues = _redmineManager.GetReadyForDevOrProdsattIssuesToBeSentToSlack();
+            var issues = _redmineManager.GetNewIssuesOrProdsattIssuesToBeSentToSlack();
 
             if (issues.Any())
             {

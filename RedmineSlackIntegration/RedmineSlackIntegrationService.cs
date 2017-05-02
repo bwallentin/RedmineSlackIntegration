@@ -33,9 +33,9 @@ namespace RedmineSlackIntegration
             _scheduler = schedulerFactory.GetScheduler();
             _scheduler.Start();
             Console.WriteLine("Starting Scheduler");
-            
+
             AddGetNewOrProdsattIssuesJob();
-            AddGetDailyBusinessIssuesInProgressJob();
+            AddGetIssuesInProgressJob();
         }
 
         public void WhenStopped()
@@ -46,19 +46,19 @@ namespace RedmineSlackIntegration
         {
             var cronScheduele = ConfigurationProvider.GetNewOrProdsattIssuesCronSchedule;
             
-            IGetNewOrProdsattIssuesJob myJob = new GetNewOrProdsattIssuesJob(_slackClient, _redmineManager);
-            var jobDetail = new JobDetailImpl("Job1", "Group1", myJob.GetType());
+            IGetNewOrProdsattIssuesJob my = new GetNewOrProdsattIssuesJob(_slackClient, _redmineManager);
+            var jobDetail = new JobDetailImpl("Job1", "Group1", my.GetType());
             var trigger = new CronTriggerImpl("Trigger1", "Group1", cronScheduele);
             _scheduler.ScheduleJob(jobDetail, trigger);
         }
 
-        private void AddGetDailyBusinessIssuesInProgressJob()
+        public void AddGetIssuesInProgressJob()
         {
-            var cronScheduele = ConfigurationProvider.GetDailyBusinessIssuesInProgressCronSchedule;
+            var cronScheduele = ConfigurationProvider.GetIssuesInProgressCronSchedule;
 
-            IGetDailyBusinessIssuesInProgressJob myJob = new GetDailyBusinessIssuesInProgressJob(_slackClient, _redmineManager);
-            var jobDetail = new JobDetailImpl("Job2", "Group2", myJob.GetType());
-            var trigger = new CronTriggerImpl("Trigger2", "Group2", cronScheduele);
+            IGetIssuesInProgressJob my = new GetIssuesInProgressJob(_slackClient, _redmineManager);
+            var jobDetail = new JobDetailImpl("Job1", "Group1", my.GetType());
+            var trigger = new CronTriggerImpl("Trigger1", "Group1", cronScheduele);
             _scheduler.ScheduleJob(jobDetail, trigger);
         }
     }
