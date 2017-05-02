@@ -57,8 +57,8 @@ namespace RedmineSlackIntegration
             var cronScheduele = ConfigurationProvider.GetIssuesInProgressCronSchedule;
 
             IGetIssuesInProgressJob my = new GetIssuesInProgressJob(_slackClient, _redmineManager);
-            var jobDetail = new JobDetailImpl("Job1", "Group1", my.GetType());
-            var trigger = new CronTriggerImpl("Trigger1", "Group1", cronScheduele);
+            var jobDetail = new JobDetailImpl("Job2", "Group2", my.GetType());
+            var trigger = new CronTriggerImpl("Trigger2", "Group2", cronScheduele);
             _scheduler.ScheduleJob(jobDetail, trigger);
         }
     }
