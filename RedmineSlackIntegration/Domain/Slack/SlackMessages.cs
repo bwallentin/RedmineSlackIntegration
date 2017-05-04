@@ -10,38 +10,20 @@ namespace RedmineSlackIntegration.Domain.Slack
         {
             var list = new List<string>
             {
-                "För många ärenden igång. WIP-limiten är bruten!! (test, hihi)"
+                "För många ärenden igång. WIP-limiten är bruten!!"
             };
 
             return PickOutRandomStringFromList(list);
 
         }
-
-        //public static string GetTooMuchDailyBusinessMessage()
-        //{
-        //    var list = new List<string>
-        //    {
-        //        "Nu har ni för många daily business ärenden igång!!!",
-        //        "Jösses!! Nu har ni för mycket daily business igång igen.",
-        //        "Åhh neej! Så mycket daily business ni arbetar med. Dags att minska det lite?",
-        //        "För många daily business ärenden igång!!",
-        //        "Hej vänner. Jag vet att ni älskar daily business. Men inte så mycket igång samtidigt, tack!"
-        //    };
-
-        //    return PickOutRandomStringFromList(list);
-        //}
-
+        
         public static string GetNewIssuesRandomMessage(Issue issue)
         {
             var adlisLink = $"<http://adlis/issues/{issue.Id}|#{issue.Id}>";
 
             var list = new List<string>
             {
-                "Nytt ärende finns nu redo för utveckling."
-                //"Hoppas ni är redo att arbeta, för nu finns ett nytt ärende redo för utveckling!",
-                //"Vässa hjärnorna! Vässa fingrarna! Nu har vi ett nytt ärende redo att hugga tag i!",
-                //"Nu får fikapausen vara över, nytt ärende redo för utveckling.",
-                //"Tjena <@slackbot>, ska vi ta en fika medans teamet börjar arbeta på det nya ärendet som är redo för utveckling?"
+                "Nytt ärende redo för utveckling!"
             };
 
             var randomString = PickOutRandomStringFromList(list);
@@ -59,7 +41,12 @@ namespace RedmineSlackIntegration.Domain.Slack
                 "Ett nytt ärende har blivit prodsatt, trevligt!",
                 "Som ni jobbar! Nytt ärende nu ute i prod!",
                 "Va grymma ni är, ännu ett nytt ärende ute i prod!",
-                "Jösses Amalia! Ännu ett ärende blev precis prodsatt. Väl utfört arbete!"
+                "Jösses Amalia! Ännu ett ärende blev precis prodsatt. Väl utfört arbete!",
+                "Hoppla, ärende prodsatt!",
+                "Wow, ännu ett ärende prodsatt!",
+                "Kors i taket! Ett till ärende prodsatt!",
+                "Ärende prodsatt!",
+                "Ännu ett ärende är nu ute och seglar i produktionsmiljöns vilda vatten!"
             };
 
             var randomString = PickOutRandomStringFromList(list);

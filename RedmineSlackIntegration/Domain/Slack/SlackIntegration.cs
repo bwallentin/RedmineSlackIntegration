@@ -13,7 +13,6 @@ namespace RedmineSlackIntegration.Domain.Slack
     public interface ISlackClient
     {
         void PostIssuesToSlack(IEnumerable<Issue> issues);
-        //void PostDailyBusinessWarningToSlack();
         void PostWipLimitBroken();
     }
 
@@ -48,11 +47,6 @@ namespace RedmineSlackIntegration.Domain.Slack
         {
             PostMessage(SlackMessages.WipLimitBrokenMessage());
         }
-
-        //public void PostDailyBusinessWarningToSlack()
-        //{
-        //    PostMessage(SlackMessages.GetTooMuchDailyBusinessMessage());
-        //}
 
         private void PostMessage(string text, string username = null, string channel = null)
         {
