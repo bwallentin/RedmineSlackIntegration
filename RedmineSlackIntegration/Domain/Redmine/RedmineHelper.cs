@@ -45,7 +45,7 @@ namespace RedmineSlackIntegration.Domain.Redmine
         {
             foreach(var issue in issues.ToList())
             {
-                var blockedIssue = issue.CustomFields.First(x => x.Name == "Blockerad av")?.Values.Select(y => y.Info != string.Empty);
+                var blockedIssue = issue.CustomFields.FirstOrDefault(x => x.Name == "Blockerad av")?.Values.Select(y => y.Info != string.Empty);
                 if(blockedIssue != null && blockedIssue.First())
                 {
                     issues.Remove(issue);
