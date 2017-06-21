@@ -31,6 +31,19 @@ namespace RedmineSlackIntegration.Domain.Slack
             return $"{randomString} {adlisLink}: {issue.Subject}";
         }
 
+        public static string GetMultipleIssuesProdsattMessage(List<Issue> issues)
+        {
+            var message = "Följande ärenden blev nyss prodsatta:";
+
+            foreach(var issue in issues)
+            {
+                var adlisLink = $"<http://adlis/issues/{issue.Id}|#{issue.Id}>";
+                message += $"\n{adlisLink}: {issue.Subject}\n";
+            }
+
+            return message;
+        }
+
         public static string GetProdsattRandomMessage(Issue issue)
         {
             var adlisLink = $"<http://adlis/issues/{issue.Id}|#{issue.Id}>";
@@ -45,6 +58,13 @@ namespace RedmineSlackIntegration.Domain.Slack
                 "Hoppla, ärende prodsatt!",
                 "Wow, ännu ett ärende prodsatt!",
                 "Kors i taket! Ett till ärende prodsatt!",
+                "Ärende prodsatt!",
+                "Ärende prodsatt!",
+                "Ärende prodsatt!",
+                "Ärende prodsatt!",
+                "Ärende prodsatt!",
+                "Ärende prodsatt!",
+                "Ärende prodsatt!",
                 "Ärende prodsatt!",
                 "Ännu ett ärende är nu ute och seglar i produktionsmiljöns vilda vatten!"
             };
