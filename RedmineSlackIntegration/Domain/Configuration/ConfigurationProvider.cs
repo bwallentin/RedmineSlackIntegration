@@ -20,7 +20,7 @@ namespace RedmineSlackIntegration.Domain.Configuration
             var key = GetAppSetting(setting);
             if (string.IsNullOrWhiteSpace(key))
             {
-                throw new Exception($"Setting {key}not configured in app.config!");
+                throw new Exception($"Setting {key} not configured in app.config!");
             }
             return key;
         }
@@ -28,6 +28,7 @@ namespace RedmineSlackIntegration.Domain.Configuration
         public static string GetNewOrProdsattIssuesCronSchedule => GetNonEmptyAppSetting("GetNewOrProdsattIssuesCronSchedule");
         public static string GetIssuesInProgressCronSchedule => GetNonEmptyAppSetting("GetIssuesInProgressCronSchedule");
         public static string WipLimit => GetNonEmptyAppSetting("WipLimit");
+        public static string ExcludedUsers => GetNonEmptyAppSetting("ExcludedUsers");
         public static string ConnectionString => GetConnectionString("bodb");
     }
 }

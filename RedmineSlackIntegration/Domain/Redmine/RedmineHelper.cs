@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Redmine.Net.Api.Types;
+using RedmineSlackIntegration.Domain.Configuration;
 
 namespace RedmineSlackIntegration.Domain.Redmine
 {
@@ -26,7 +27,13 @@ namespace RedmineSlackIntegration.Domain.Redmine
 
         public static List<Issue> RemoveExcludedUsers(List<Issue> issues)
         {
-            issues.RemoveAll(issue => issue.AssignedTo.Name.Contains("Lars Utterström"));
+            var excludedUsers = ConfigurationProvider.ExcludedUsers.Split(',').ToList();
+            
+            foreach(var excludedUser in excludedUsers)
+            {
+                issues.RemoveAll(issue => issue.AssignedTo.Name.Contains(excludedUser));
+            }
+
             return issues;
         }
 

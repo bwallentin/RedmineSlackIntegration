@@ -43,6 +43,7 @@ namespace RedmineSlackIntegration.Domain.Redmine
             
             RedmineHelper.RemoveDailyBusinessIssues(completeListFromAdlis);
             RedmineHelper.RemoveBlockedIssues(completeListFromAdlis);
+            RedmineHelper.RemoveExcludedUsers(completeListFromAdlis);
 
             return completeListFromAdlis;
         }
