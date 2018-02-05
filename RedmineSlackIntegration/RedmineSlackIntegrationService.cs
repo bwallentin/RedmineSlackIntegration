@@ -35,7 +35,7 @@ namespace RedmineSlackIntegration
             Console.WriteLine("Starting Scheduler");
 
             AddGetNewOrProdsattIssuesJob();
-            AddGetIssuesInProgressJob();
+            //AddGetIssuesInProgressJob();
         }
 
         public void WhenStopped()

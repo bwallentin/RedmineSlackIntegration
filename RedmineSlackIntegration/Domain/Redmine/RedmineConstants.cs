@@ -7,7 +7,8 @@ namespace RedmineSlackIntegration.Domain.Redmine
     {
         InkopProdukt = 82,
         AIS = 84,
-        DailyBusiness = 95
+        DailyBusiness = 95,
+        InkopsFronten = 257
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
