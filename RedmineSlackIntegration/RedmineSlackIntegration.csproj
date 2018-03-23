@@ -80,9 +80,10 @@
     <Compile Include="DataUtils\ReflectionProvider.cs" />
     <Compile Include="DataUtils\SqlManager.cs" />
     <Compile Include="Domain\Redmine\RedmineApiIntegration.cs" />
-    <Compile Include="Jobs\GetIssuesInProgressJob.cs" />
+    <Compile Include="Jobs\CheckWipLimitJob.cs" />
     <Compile Include="Jobs\GetNewOrProdsattIssuesJob.cs" />
     <Compile Include="Jobs\JobFactory.cs" />
+    <Compile Include="Jobs\PostStormIntegrationStatus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedmineSlackIntegrationService.cs" />

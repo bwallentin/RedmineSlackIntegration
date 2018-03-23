@@ -7,16 +7,16 @@ using RedmineSlackIntegration.Domain.Slack;
 
 namespace RedmineSlackIntegration.Jobs
 {
-    internal interface IGetIssuesInProgressJob : IJob
+    internal interface ICheckWipLimitJob : IJob
     {
     }
 
-    internal class GetIssuesInProgressJob : IGetIssuesInProgressJob
+    internal class CheckWipLimitJob : ICheckWipLimitJob
     {
         private readonly ISlackClient _slackClient;
         private readonly IRedmineManager _redmineManager;
 
-        public GetIssuesInProgressJob(ISlackClient slackClient, IRedmineManager redmineManager)
+        public CheckWipLimitJob(ISlackClient slackClient, IRedmineManager redmineManager)
         {
             _slackClient = slackClient;
             _redmineManager = redmineManager;

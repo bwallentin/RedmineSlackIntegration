@@ -26,9 +26,11 @@ namespace RedmineSlackIntegration.Domain.Configuration
         }
 
         public static string GetNewOrProdsattIssuesCronSchedule => GetNonEmptyAppSetting("GetNewOrProdsattIssuesCronSchedule");
-        public static string GetIssuesInProgressCronSchedule => GetNonEmptyAppSetting("GetIssuesInProgressCronSchedule");
+        public static string CheckWipLimitJobCronSchedule => GetNonEmptyAppSetting("CheckWipLimitJobCronSchedule");
+        public static string PostStormIntegrationStatusCronSchedule => GetNonEmptyAppSetting("PostStormIntegrationStatusCronSchedule");
         public static string WipLimit => GetNonEmptyAppSetting("WipLimit");
         public static string ExcludedUsers => GetNonEmptyAppSetting("ExcludedUsers");
         public static string ConnectionString => GetConnectionString("bodb");
+        public static string StormIntegrationFolder => GetNonEmptyAppSetting("StormIntegrationFolder");
     }
 }

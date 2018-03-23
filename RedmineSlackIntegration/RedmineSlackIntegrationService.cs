@@ -35,7 +35,8 @@ namespace RedmineSlackIntegration
             Console.WriteLine("Starting Scheduler");
 
             AddGetNewOrProdsattIssuesJob();
-            //AddGetIssuesInProgressJob();
+            //AddCheckWipLimitJob();
+            AddPostStormIntegrationStatusJob();
         }
 
         public void WhenStopped()
@@ -52,13 +53,23 @@ namespace RedmineSlackIntegration
             _scheduler.ScheduleJob(jobDetail, trigger);
         }
 
-        public void AddGetIssuesInProgressJob()
+        public void AddCheckWipLimitJob()
         {
-            var cronScheduele = ConfigurationProvider.GetIssuesInProgressCronSchedule;
+            var cronScheduele = ConfigurationProvider.CheckWipLimitJobCronSchedule;
 
-            IGetIssuesInProgressJob my = new GetIssuesInProgressJob(_slackClient, _redmineManager);
+            ICheckWipLimitJob my = new CheckWipLimitJob(_slackClient, _redmineManager);
             var jobDetail = new JobDetailImpl("Job2", "Group2", my.GetType());
             var trigger = new CronTriggerImpl("Trigger2", "Group2", cronScheduele);
+            _scheduler.ScheduleJob(jobDetail, trigger);
+        }
+
+        public void AddPostStormIntegrationStatusJob()
+        {
+            var cronScheduele = ConfigurationProvider.PostStormIntegrationStatusCronSchedule;
+
+            IPostStormIntegrationStatusJob my = new PostStormIntegrationStatusJob(_slackClient);
+            var jobDetail = new JobDetailImpl("Job3", "Group3", my.GetType());
+            var trigger = new CronTriggerImpl("Trigger3", "Group3", cronScheduele);
             _scheduler.ScheduleJob(jobDetail, trigger);
         }
     }

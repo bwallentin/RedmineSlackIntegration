@@ -1,11 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Redmine.Net.Api.Types;
+using RedmineSlackIntegration.Domain.Configuration;
 
 namespace RedmineSlackIntegration.Domain.Slack
 {
     public static class SlackMessages
     {
+        public static string StormIntegrationMessage()
+        {
+            var files = new DirectoryInfo(ConfigurationProvider.StormIntegrationFolder).GetFiles().ToList();
+            var orderedEnumerable = files.Where(x => x.CreationTime > DateTime.Now.AddHours(-24)).OrderByDescending(x => x.CreationTime).ToList();
+
+            var list = new List<string>
+            {
+                $"Antal felande filer som försökt läsas in i StormIntegration det senaste dygnet: {orderedEnumerable.Count}"
+            };
+
+            return PickOutRandomStringFromList(list);
+        }
+
         public static string WipLimitBrokenMessage()
         {
             var list = new List<string>
