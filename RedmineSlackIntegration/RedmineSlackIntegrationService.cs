@@ -36,7 +36,7 @@ namespace RedmineSlackIntegration
 
             AddGetNewOrProdsattIssuesJob();
             //AddCheckWipLimitJob();
-            AddPostStormIntegrationStatusJob();
+            //AddPostStormIntegrationStatusJob();
         }
 
         public void WhenStopped()
