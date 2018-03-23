@@ -18,7 +18,8 @@ namespace RedmineSlackIntegration.Jobs
 
         public void Execute(IJobExecutionContext context)
         {
-            _slackClient.PostStormIntegrationStatus();
+            //_slackClient.PostStormIntegrationNumberOfFailedImports();
+            _slackClient.PostStormIntegrationFailedFullFile();
         }
     }
 }

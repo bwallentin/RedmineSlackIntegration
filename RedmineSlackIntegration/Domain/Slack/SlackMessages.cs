@@ -9,10 +9,13 @@ namespace RedmineSlackIntegration.Domain.Slack
 {
     public static class SlackMessages
     {
-        public static string StormIntegrationMessage()
+        public static string StormIntegrationNumberOfFailedImports()
         {
             var files = new DirectoryInfo(ConfigurationProvider.StormIntegrationFolder).GetFiles().ToList();
-            var orderedEnumerable = files.Where(x => x.CreationTime > DateTime.Now.AddHours(-24)).OrderByDescending(x => x.CreationTime).ToList();
+
+            var orderedEnumerable = files.Where(x => x.CreationTime > DateTime.Now.AddHours(-24))
+                                         .OrderByDescending(x => x.CreationTime)
+                                         .ToList();
 
             var list = new List<string>
             {
@@ -20,6 +23,27 @@ namespace RedmineSlackIntegration.Domain.Slack
             };
 
             return PickOutRandomStringFromList(list);
+        }
+
+        public static string StormIntegrationFailedFullFile()
+        {
+            var files = new DirectoryInfo(ConfigurationProvider.StormIntegrationFolder).GetFiles().ToList();
+
+            var fullfile = files.Where(x => x.CreationTime > DateTime.Now.AddHours(-24) &&
+                                            x.FullName.Contains("CreateAndUpdateSkuFull"))
+                                .OrderByDescending(x => x.CreationTime)
+                                .FirstOrDefault();
+
+            if (fullfile != null)
+            {
+                var list = new List<string>
+                {
+                    $"Det finns en full-fil som misslyckats läsa in via StormIntegration senaste dygnet! Fil: {Path.GetFileNameWithoutExtension(fullfile.FullName)}"
+                };
+
+                return PickOutRandomStringFromList(list);
+            }
+            return null;
         }
 
         public static string WipLimitBrokenMessage()
@@ -30,9 +54,8 @@ namespace RedmineSlackIntegration.Domain.Slack
             };
 
             return PickOutRandomStringFromList(list);
-
         }
-        
+
         public static string GetNewIssuesRandomMessage(Issue issue)
         {
             var adlisLink = $"<http://adlis/issues/{issue.Id}|#{issue.Id}>";
@@ -51,7 +74,7 @@ namespace RedmineSlackIntegration.Domain.Slack
         {
             var message = "Följande ärenden blev nyss prodsatta:";
 
-            foreach(var issue in issues)
+            foreach (var issue in issues)
             {
                 var adlisLink = $"<http://adlis/issues/{issue.Id}|#{issue.Id}>";
                 message += $"\n{adlisLink}: {issue.Subject}\n";

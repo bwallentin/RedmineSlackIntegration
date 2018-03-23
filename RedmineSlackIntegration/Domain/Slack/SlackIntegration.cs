@@ -14,7 +14,8 @@ namespace RedmineSlackIntegration.Domain.Slack
     {
         void PostIssuesToSlack(IEnumerable<Issue> issues);
         void PostWipLimitBroken();
-        void PostStormIntegrationStatus();
+        void PostStormIntegrationNumberOfFailedImports();
+        void PostStormIntegrationFailedFullFile();
     }
 
     public class SlackClient : ISlackClient
@@ -49,13 +50,20 @@ namespace RedmineSlackIntegration.Domain.Slack
             PostMessage(SlackMessages.WipLimitBrokenMessage());
         }
 
-        public void PostStormIntegrationStatus()
+        public void PostStormIntegrationNumberOfFailedImports()
         {
-            PostMessage(SlackMessages.StormIntegrationMessage());
+            PostMessage(SlackMessages.StormIntegrationNumberOfFailedImports());
+        }
+
+        public void PostStormIntegrationFailedFullFile()
+        {
+            PostMessage(SlackMessages.StormIntegrationFailedFullFile());
         }
 
         private void PostMessage(string text, string username = null, string channel = null)
         {
+            if (string.IsNullOrWhiteSpace(text)) return;
+
             var payload = new Payload
             {
                 Channel = channel,
